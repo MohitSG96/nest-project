@@ -1,0 +1,8 @@
+{
+  "terminal.integrated.defaultProfile.linux": "JavaScript Debug Terminal",
+  "editor.tabSize": 2,
+  "prettier.tabWidth": 2,
+  "cSpell.words": [
+    "nestjs"
+  ]
+}
