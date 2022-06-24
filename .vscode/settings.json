@@ -3,6 +3,7 @@
   "editor.tabSize": 2,
   "prettier.tabWidth": 2,
   "cSpell.words": [
+    "JWTKEY",
     "nestjs"
   ]
 }
