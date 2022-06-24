@@ -1,13 +1,13 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { UserService } from 'src/modules/user/user.service';
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy) {
+export class JwtStrategy extends PassportStrategy(Strategy, 'jwt-auth') {
   constructor(
-    private readonly config: ConfigService,
+    readonly config: ConfigService,
     private readonly userService: UserService,
   ) {
     super({
@@ -17,12 +17,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
   async validate(payload: any) {
-    const user = await this.userService.findOneById(payload.id);
-    if (!user) {
-      throw new UnauthorizedException(
-        'You are not authorized to perform the operation',
-      );
+    const user = await this.userService.findOneById(payload.sub);
+    if (!user || !user.id) {
+      return null;
     }
-    return payload;
+    delete user.cryptPass;
+    return user;
   }
 }
