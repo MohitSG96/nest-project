@@ -29,6 +29,7 @@
 ## Installation
 
 ```bash
+# install dependencies
 $ npm install
 ```
 
@@ -64,6 +65,8 @@ $ npm run test:cov
 # generate docs
 $ npm run compodoc
 ```
+
+Go To [localhost:8080](http://localhost:8080) to see docs.
 
 ## Support
 
