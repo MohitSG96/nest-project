@@ -3,6 +3,9 @@ import { User } from 'src/modules/user/user.entity';
 import { SEQUELIZE, DEVELOPMENT, TEST, PRODUCTION } from '../constants';
 import { databaseConfig } from './database.config';
 
+/**
+ * Database provider for Database Module
+ */
 export const databaseProviders = [
   {
     provide: SEQUELIZE,
