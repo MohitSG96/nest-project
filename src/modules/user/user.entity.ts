@@ -36,7 +36,7 @@ export class User extends Model<User> {
   /**
    * User's phone number (unique in DB)
    */
-  @Column({ unique: true, type: DataType.STRING })
+  @Column({ unique: true, type: DataType.STRING, allowNull: false })
   phone: string;
 
   /**

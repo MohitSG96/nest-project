@@ -1,4 +1,14 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  ForbiddenException,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  UseGuards,
+} from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiExtraModels,
@@ -42,5 +52,48 @@ export class UserController {
   })
   async getMe(@GetUser() user: User): Promise<{ data: User; msg: string }> {
     return { data: user, msg: 'User Info' };
+  }
+
+  /**
+   * Updates the Logged in user
+   * @param userId authorized User id
+   * @param dto user Data
+   * @returns Updated User Object
+   */
+  @Patch()
+  @ApiResponse({
+    status: 200,
+    schema: {
+      $ref: getSchemaPath(GetUserDTO),
+    },
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'unauthorized User',
+  })
+  async updateUser(@GetUser('id') userId: number, @Body() dto: UserDTO) {
+    const user = await this.userService.findOneAndUpdate(userId, dto);
+    return { data: user, msg: 'user updated!' };
+  }
+
+  /**
+   * Deletes User from DB
+   * @param id User ID
+   * @returns Response message
+   */
+  @Delete()
+  @ApiResponse({
+    status: 200,
+    schema: {
+      $ref: getSchemaPath(GetUserDTO),
+    },
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'unauthorized User',
+  })
+  async deleteUser(@GetUser('id') id: number) {
+    await this.userService.deleteUser(id);
+    return { data: {}, msg: 'user deleted' };
   }
 }

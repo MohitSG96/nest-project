@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IsOptional } from 'class-validator';
 import { GetUserDTO } from './get-user.dto';
 
 /**
@@ -8,6 +9,7 @@ export class UserDTO extends GetUserDTO {
   /**
    * User's encrypted password
    */
+  @IsOptional()
   @ApiProperty({
     example: 'hashed-password',
     description: 'Password',

@@ -1,5 +1,7 @@
 import { Inject } from '@nestjs/common';
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import * as bcrypt from 'bcrypt';
 import { UserDTO } from './dto';
 import { User } from './user.entity';
 
@@ -14,6 +16,7 @@ export class UserService {
    */
   constructor(
     @Inject('USER_REPOSITORY') private readonly userRepository: typeof User,
+    private readonly config: ConfigService,
   ) {}
 
   /**
@@ -41,5 +44,50 @@ export class UserService {
    */
   async findOneById(id: number): Promise<User> {
     return await this.userRepository.findOne<User>({ where: { id } });
+  }
+
+  /**
+   * Updates the User ID
+   * @param id User's ID to be updated
+   * @param user User Data
+   * @returns UserData Object
+   */
+  async findOneAndUpdate(id: number, user: Partial<UserDTO>) {
+    return (
+      await this.userRepository.update<User>(user, {
+        returning: true,
+        where: { id },
+      })
+    )?.[1]?.[0];
+  }
+
+  /**
+   * Updates the user's password
+   * @param id User ID
+   * @param password User's new password
+   * @returns UserData Object
+   */
+  async updatePassword(id: number, password: string) {
+    // generate Hashed Password
+    const hash = await bcrypt.hash(password, Number(this.config.get('SALT')));
+
+    try {
+      const user = await this.userRepository.update<User>(
+        { cryptPass: hash },
+        { returning: true, where: { id } },
+      );
+      return user?.[1]?.[0];
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Deletes User from DB
+   * @param id User ID
+   * @returns Deleted User or not
+   */
+  async deleteUser(id: number) {
+    return this.userRepository.destroy<User>({ where: { id } });
   }
 }
