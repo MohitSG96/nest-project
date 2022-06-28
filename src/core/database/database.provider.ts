@@ -24,7 +24,10 @@ export const databaseProviders = [
         default:
           config = databaseConfig.development;
       }
-      const sequelize = new Sequelize(config);
+      const sequelize = new Sequelize(config, {
+        ssl: true,
+        dialectOptions: { ssl: true },
+      });
       sequelize.addModels([User]);
       await sequelize.sync();
       return sequelize;
