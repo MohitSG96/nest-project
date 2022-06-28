@@ -25,8 +25,9 @@ export const databaseProviders = [
           config = databaseConfig.development;
       }
       const sequelize = new Sequelize({
-        ssl: true,
-        dialectOptions: { ssl: true },
+        ssl: {
+          rejectUnauthorized: false,
+        },
         ...config,
       });
       sequelize.addModels([User]);
