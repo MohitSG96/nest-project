@@ -25,8 +25,11 @@ export const databaseProviders = [
           config = databaseConfig.development;
       }
       const sequelize = new Sequelize({
-        ssl: {
-          rejectUnauthorized: false,
+        dialectOptions: {
+          ssl: {
+            require: true,
+            rejectUnauthorized: false,
+          },
         },
         ...config,
       });
