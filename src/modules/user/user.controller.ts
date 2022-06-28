@@ -2,10 +2,7 @@ import {
   Body,
   Controller,
   Delete,
-  ForbiddenException,
   Get,
-  Param,
-  ParseIntPipe,
   Patch,
   UseGuards,
 } from '@nestjs/common';
