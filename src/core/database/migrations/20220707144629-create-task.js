@@ -12,7 +12,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER.UNSIGNED,
+        type: Sequelize.INTEGER,
       },
       title: {
         type: Sequelize.STRING,
@@ -26,7 +26,7 @@ module.exports = {
         defaultValue: false,
       },
       UserId: {
-        type: Sequelize.INTEGER.UNSIGNED,
+        type: Sequelize.INTEGER,
         references: {
           model: {
             tableName: 'Users',

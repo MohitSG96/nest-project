@@ -1,8 +1,11 @@
 import { Sequelize } from 'sequelize-typescript';
+import * as dotenv from 'dotenv';
+import { Task } from 'src/modules/task/task.entity';
 import { User } from 'src/modules/user/user.entity';
 import { SEQUELIZE, DEVELOPMENT, TEST, PRODUCTION } from '../constants';
 import { databaseConfig } from './database.config';
 
+dotenv.config();
 /**
  * Database provider for Database Module
  */
@@ -33,7 +36,7 @@ export const databaseProviders = [
         },
         ...config,
       });
-      sequelize.addModels([User]);
+      sequelize.addModels([User, Task]);
       await sequelize.sync();
       return sequelize;
     },
