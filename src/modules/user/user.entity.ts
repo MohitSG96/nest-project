@@ -1,4 +1,5 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
+import { Task } from '../task/task.entity';
 
 /**
  * User's Table Entity Definition
@@ -44,4 +45,7 @@ export class User extends Model<User> {
    */
   @Column({ defaultValue: true })
   isActive: boolean;
+
+  @HasMany(() => Task, { onDelete: 'CASCADE' })
+  tasks: Task[];
 }
