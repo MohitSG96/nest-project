@@ -6,7 +6,7 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { User } from '../user/user.entity';
+import { User } from './user.entity';
 
 /**
  * User's Table Entity Definition

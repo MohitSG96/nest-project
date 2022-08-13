@@ -2,8 +2,8 @@ import { Inject } from '@nestjs/common';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as bcrypt from 'bcrypt';
+import { User } from 'src/schemas/user.entity';
 import { UserDTO } from './dto';
-import { User } from './user.entity';
 
 /**
  * UserServices fot the User Module

@@ -1,10 +1,12 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Inject, Post } from '@nestjs/common';
 import {
   ApiExtraModels,
   ApiResponse,
   ApiTags,
   getSchemaPath,
 } from '@nestjs/swagger';
+import { REDIS } from 'src/core/constants';
+import { RedisService } from 'src/core/redis/redis.service';
 import { AuthService } from './auth.service';
 import { AuthDTO, LoginDTO } from './dto';
 

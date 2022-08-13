@@ -1,5 +1,5 @@
 import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
-import { Task } from '../task/task.entity';
+import { Task } from './task.entity';
 
 /**
  * User's Table Entity Definition

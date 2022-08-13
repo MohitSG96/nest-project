@@ -2,6 +2,7 @@ import { ForbiddenException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { RedisService } from 'src/core/redis/redis.service';
 import { UserService } from '../user/user.service';
 import { AuthDTO, LoginDTO } from './dto';
 
@@ -20,6 +21,7 @@ export class AuthService {
     private readonly jwt: JwtService,
     private readonly config: ConfigService,
     private readonly userService: UserService,
+    private readonly redisService: RedisService,
   ) {}
 
   /**
@@ -28,6 +30,7 @@ export class AuthService {
    * @returns UserData from DB
    */
   async login(dto: LoginDTO) {
+    await this.redisService.incrScore('USER_LOGINS', dto.email, 1);
     const user = await this.userService.findOneByEmail(dto.email);
 
     // If user does not exist throw Exception

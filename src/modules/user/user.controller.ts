@@ -1,8 +1,10 @@
 import {
   Body,
+  CACHE_MANAGER,
   Controller,
   Delete,
   Get,
+  Inject,
   Patch,
   UseGuards,
 } from '@nestjs/common';
@@ -13,10 +15,11 @@ import {
   ApiTags,
   getSchemaPath,
 } from '@nestjs/swagger';
+import { Cache } from 'cache-manager';
+import { User } from 'src/schemas/user.entity';
 import { GetUser } from '../auth/decorator';
 import { JwtGuard } from '../auth/guard';
 import { GetUserDTO, UserDTO } from './dto';
-import { User } from './user.entity';
 import { UserService } from './user.service';
 
 /**

@@ -1,7 +1,6 @@
 import { Sequelize } from 'sequelize-typescript';
 import * as dotenv from 'dotenv';
-import { Task } from 'src/modules/task/task.entity';
-import { User } from 'src/modules/user/user.entity';
+import schemas from 'src/schemas';
 import { SEQUELIZE, DEVELOPMENT, TEST, PRODUCTION } from '../constants';
 import { databaseConfig } from './database.config';
 
@@ -36,7 +35,7 @@ export const databaseProviders = [
         },
         ...config,
       });
-      sequelize.addModels([User, Task]);
+      sequelize.addModels(schemas);
       await sequelize.sync();
       return sequelize;
     },

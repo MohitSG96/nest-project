@@ -2,6 +2,12 @@
  * Sequelize DB
  */
 export const SEQUELIZE = 'SEQUELIZE';
+
+/**
+ * Redis Client
+ */
+
+export const REDIS = 'REDIS_CLIENT';
 /**
  * Development env name
  */
