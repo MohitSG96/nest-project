@@ -30,7 +30,11 @@ export class AuthService {
    * @returns UserData from DB
    */
   async login(dto: LoginDTO) {
-    await this.redisService.incrScore('USER_LOGINS', dto.email, 1);
+    const saved = await this.redisService.incrScore(
+      'USER_LOGINS_ATTEMPTS',
+      dto.email,
+      1,
+    );
     const user = await this.userService.findOneByEmail(dto.email);
 
     // If user does not exist throw Exception
